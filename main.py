@@ -30,6 +30,10 @@ class Excel:
 
     copia1=pd.DataFrame({'Pais':paises,'Capital':capitales,'Idioma':idiomas})
 
+    continentes=['Europa','América','Asia']
+
+    copia1.insert(2,'Continente',continentes,allow_duplicates=False)
+
     archivo=ExcelWriter('copia1.xls')
     copia1.to_excel(archivo,'Hoja Copia',index=False)
     archivo.save()
