@@ -49,19 +49,17 @@ class Pais:
 
     ''' Lee un archivo .xlsx, almacena la informacion que contiene y luego crea un nuevo archivo con esta informacion y otra adicional '''
 
-    # Usando la libreria openpyxl y la funcion load_workbook vamos a leer el archivo que usaremos de base llamado Libro1.xlsx
+    # Usando la libreria openpyxl y la funcion load_workbook vamos a abrir el archivo original del que tomaremos algunos datos 
 
     libro1=openpyxl.load_workbook('Libro1.xlsx')
 
-    # Ahora vamos a usar la Hoja1 del libro que acabamos de leer 
+    # De este libro usaremos la Hoja1
 
     hoja1=libro1['Hoja1']
 
-    # Mediante Hoja1[celdas] vamos a leer los datos que usaremos en el archivo nuevo. De A2:A4 hay una lista de 3 capitales y de B2:B4 estan los idiomas que hablan en cada una de estas ciudades
-
     capitales=hoja1['A2':'A4']
     idiomas=hoja1['B2':'B4']
-
+  
 
     # Ahora comenzaremos a crear un nuevo libro
 
@@ -108,6 +106,3 @@ a=Pais()
 a.modificar()
 
 # FINALIZA EJEMPLO 1
-
-
-#
