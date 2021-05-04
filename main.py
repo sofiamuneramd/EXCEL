@@ -95,9 +95,7 @@ class Pais:
 
     archivo.save()
 
-    # Cerramos el archivo 
-
-    archivo.close()
+    
 
 # Llamamos la clase Pais, que inmediantamente creará los 3 atributos de instancia 
 
@@ -164,6 +162,8 @@ class Pais:
 
     copia2=pd.DataFrame({self.encabezado0:paises,self.encabezado1:poblacion_total,'MUJERES(%)':poblacion_mujeres,' MIGRANTES(%)':poblacion_migrantes,'POBLACION QUE VIVE EN TUGURIOS (%)':poblacion_tugurios})
 
+    import xlsxwriter 
+
     encabezado = copia2.add_format()
     encabezado.set_font_color('blue')
     encabezado.set_font_size(16)
@@ -185,9 +185,7 @@ class Pais:
 
     nuevo.save()
 
-    # Cerramos el archivo 
-
-    nuevo.close()
+    
 
 b=Pais()
 b.agregar
