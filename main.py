@@ -107,7 +107,7 @@ a.modificar()
 
 # FINALIZA EJEMPLO 1
 
-
+"""
 # EJEMPLO 2
 
 # Creamos una clase llamada Pais
@@ -191,6 +191,40 @@ b=Pais()
 b.agregar
 
 # FINALIZA EJEMPLO 2
+"""
+
+class ejemplo:
+
+  def __init__(self):
+
+    self.raiz='raiz cuadrada'
+    self.raiz_cub='raíz cúbica'
+
+  def nuevo(self):
+
+    tabla=pd.read_excel('Libro3.xlsx', 'Hoja1')
+
+    import numpy as np
+
+    hoja0=tabla.apply(np.sqrt)
+    hoja1=tabla.apply(np.sum)
+
+    nuevo=ExcelWriter('Copia3.xlsx')
+
+    # Ahora con ayuda de .to_excel el Dataframe que creamos lo guardaremos en este nuevo archivo (Copia2), la hoja se llamara Hoja Copia 2 y podemos index=False para que no se incluya encabezado de numeros 
+
+    hoja0.to_excel(nuevo,'Raices',index=False)
+    hoja1.to_excel(nuevo,'Sumatoria',index=False)
+
+
+    # Guardamos lo ingresado al archivo copia 2
+
+    nuevo.save()
+  
+
+a=ejemplo()
+a.nuevo()
+
 
 
 
