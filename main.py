@@ -197,7 +197,7 @@ class ejemplo:
 
   def __init__(self):
 
-    self.raiz='raiz cuadrada'
+    self.raiz='RAIZ CUADRADA'
     self.sum='SUMATORIA'
 
   def nuevo(self):
@@ -210,14 +210,15 @@ class ejemplo:
 
     datos=tabla.apply(np.sum)
 
-    hoja1=pd.DataFrame({self.sum:datos})
+    hoja1=pd.DataFrame({'SUMATORIA':datos})
 
     nuevo=ExcelWriter('Copia3.xlsx')
 
     # Ahora con ayuda de .to_excel el Dataframe que creamos lo guardaremos en este nuevo archivo (Copia2), la hoja se llamara Hoja Copia 2 y podemos index=False para que no se incluya encabezado de numeros 
 
-    hoja0.to_excel(nuevo,'Raices',index=False)
-    hoja1.to_excel(nuevo,'Sumatoria',index=False)
+    tabla.to_excel(nuevo,'ORIGINAL',index=False)
+    hoja0.to_excel(nuevo,self.raiz,index=False)
+    hoja1.to_excel(nuevo,self.sum,index=False)
 
 
     # Guardamos lo ingresado al archivo copia 2
