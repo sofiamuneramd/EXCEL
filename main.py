@@ -198,7 +198,7 @@ class ejemplo:
   def __init__(self):
 
     self.raiz='raiz cuadrada'
-    self.raiz_cub='raíz cúbica'
+    self.sum='SUMATORIA'
 
   def nuevo(self):
 
@@ -207,7 +207,10 @@ class ejemplo:
     import numpy as np
 
     hoja0=tabla.apply(np.sqrt)
-    hoja1=tabla.apply(np.sum)
+
+    datos=tabla.apply(np.sum)
+
+    hoja1=pd.DataFrame({self.sum:datos})
 
     nuevo=ExcelWriter('Copia3.xlsx')
 
