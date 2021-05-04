@@ -1,7 +1,7 @@
 # Sofía Múnera Medina
 # Python
 # POO con archivos .xslx
-# Fuentes:
+# Fuentes: https://www.bancomundial.org/es/home
 
 
 # EJEMPLO 1
@@ -112,20 +112,36 @@ a.modificar()
 
 # EJEMPLO 2
 
+# Creamos una clase llamada Pais
+
 class Pais:
+
+  # Documentacion 
+
+  ''' Clase que representa la poblacion total y de mujeres de 3 paises diferentes '''
+
+  # Usamos __init__ para establecer los atributos de instancia 
 
   def __init__(self):
 
+    # Documentacion 
+
+    ''' Metodo constructor de la clase Pais, establece dos atributos de instancia de tipo cadena de texto '''
+
+    # Establecemos los dos atribtuos que luego usaremos como encabezados de una tabla 
+
     self.encabezado0='PAIS'
-    self.encabezado1='POBLACIÓN'
+    self.encabezado1='POBLACIÓN TOTAL'
   
+  # CReamos una funcion llamada agregar donde crearemos un nuevo archivo de excel y haremos uso de los atributos 
+
   def agregar(self):
 
     # Documentacion 
 
-    ''' Lee un archivo .xlsx, almacena la informacion que contiene y luego crea un nuevo archivo con esta informacion y otra adicional '''
+    ''' Lee un archivo llamado Libro2.xlsx, almacena la informacion de este y luego crea un nuevo archivo con la informacion extraida y una adicional '''
 
-    # Usando la libreria openpyxl y la funcion load_workbook vamos a leer el archivo que usaremos de base llamado Libro1.xlsx
+    # Usando la libreria openpyxl y la funcion load_workbook vamos a leer el archivo que usaremos de base llamado Libro2.xlsx
 
     libro1=openpyxl.load_workbook('Libro2.xlsx')
 
@@ -133,29 +149,50 @@ class Pais:
 
     hoja1=libro1['Hoja1']
 
-    # Mediante Hoja1[celdas] vamos a leer los datos que usaremos en el archivo nuevo. De A2:A4 hay una lista de 3 capitales y de B2:B4 estan los idiomas que hablan en cada una de estas ciudades
+    # Mediante Hoja1[celdas] vamos a leer los datos que usaremos en el archivo nuevo. De A2:A4 hay una lista de 3 paises y de B2:B4 esta la poblacion total de cada pais 
 
     paises=hoja1['A2':'A4']
     poblacion_total=hoja1['B2':'B4']
 
-    copia2=pd.DataFrame({self.encabezado0:paises,self.encabezado1:poblacion_total})
+    # Creamos una nueva lista con el porcentaje de mujeres,migrantes, personas que viven en tugurios  en cada pais
 
-    archivo=ExcelWriter('Copia2.xlsx')
+    poblacion_mujeres=hoja1[50.9,48.0,51.1]
+    poblacion_migrantes=hoja1[0.3,0.4,0.9]
+    poblacion_tugurios=[28,35,16]
 
-    # Ahora con ayuda de .to_excel el Dataframe que creamos (incluyendo la informacion insertada posteriormente) lo guardaremos en este nuevo archivo (Copia1), la hoja se llamara Hoja Copia y podemos index=False para que no se incluya encabezado de numeros 
+    # Mediante dataFrame vamos a crear una tabla con los datos ingresados donde los encabezados de las dos primeras columnas serán los atributos y las otras tres columnas tendran como titulo MUJERES,MIGRANTES Y POBLACION QUE VIVE EN TUGURIOS estas tres ultimas columnas tendran sus datos en porcentaje
 
-    copia2.to_excel(archivo,'Hoja Copia 2',index=False)
+    copia2=pd.DataFrame({self.encabezado0:paises,self.encabezado1:poblacion_total,'MUJERES(%)':poblacion_mujeres,' MIGRANTES(%)':poblacion_migrantes,'POBLACION QUE VIVE EN TUGURIOS (%)':poblacion_tugurios})
 
-    # Guardamos lo ingresado al archivo copia 1
+    encabezado = copia2.add_format()
+    encabezado.set_font_color('blue')
+    encabezado.set_font_size(16)
+    encabezado.set_bold()
 
-    archivo.save()
+    copia2_estadistica=hoja1.describe
+
+    # Con ExcelWritel creamos una nueva hoja llamada copia2 de tipo xlsx
+
+    nuevo=ExcelWriter('Copia2.xlsx')
+
+    # Ahora con ayuda de .to_excel el Dataframe que creamos lo guardaremos en este nuevo archivo (Copia2), la hoja se llamara Hoja Copia 2 y podemos index=False para que no se incluya encabezado de numeros 
+
+    copia2.to_excel(nuevo,'Hoja Copia 2',index=False)
+    copia2_estadistica.to_excel(nuevo,'Hoja Copia 2.2',index=False)
+
+
+    # Guardamos lo ingresado al archivo copia 2
+
+    nuevo.save()
 
     # Cerramos el archivo 
 
-    archivo.close()
+    nuevo.close()
 
-a=Pais()
-a.agregar
+b=Pais()
+b.agregar
+
+# FINALIZA EJEMPLO 2
 
 
 
